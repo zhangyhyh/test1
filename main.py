@@ -16,16 +16,3 @@
 # h1 = Hi("hh")
 # h1.sayHello()
 
-# -*- coding: UTF-8 -*-
-#导入re库文件
-import re
-old_url = 'http://www.jikexueyuan.com/course/android/?pageNum=2'
-total_page = 20
-
-f = open('jikexueyuan.html','r',encoding='utf-8') #以指定的编码类型（即文件本身的编码）打开文件，
-# chardet库可以判断文件编码类型
-html = f.read()
-f.close()
-
-title = re.search('<title>(.*?)</title>', html, re.S) .group(0)
-print(title)
