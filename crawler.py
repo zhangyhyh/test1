@@ -1,13 +1,13 @@
 # -*- coding: UTF-8 -*-
 #导入re库文件
-import re
-old_url = 'http://www.jikexueyuan.com/course/android/?pageNum=2'
-total_page = 20
-
-f = open('jikexueyuan.html','r',encoding='utf-8') #以指定的编码类型（即文件本身的编码）打开文件，
-# chardet库可以判断文件编码类型
-html = f.read()
-f.close()
+# import re
+# # old_url = 'http://www.jikexueyuan.com/'
+# # total_page = 20
+#
+# f = open('jikexueyuan.html','r',encoding='utf-8') #以指定的编码类型（即文件本身的编码）打开文件，
+# # chardet库可以判断文件编码类型
+# html = f.read()
+# f.close()
 #爬取标题
 # title = re.search('<title>(.*?)</title>', html, re.S) .group(1)
 # print(title)
@@ -21,6 +21,23 @@ f.close()
 # for each in text:
 #     print (each)
 #sub实现翻页
-for i in range(2,total_page+1):
-    newlink = re.sub('pageNum=\d+', 'pageNum=%d'%i,old_url,re.S)
-    print(newlink)
+# for i in range(2,total_page+1):
+#     newlink = re.sub('pageNum=\d+', 'pageNum=%d'%i,old_url,re.S)
+#     print(newlink)
+#图片爬虫
+import re
+import requests
+f = open('jikexueyuan.html','r',encoding='utf-8') #以指定的编码类型（即文件本身的编码）打开文件，
+# chardet库可以判断文件编码类型
+html = f.read()
+f.close()
+pics = re.findall('img src="(.*?)" class=',html,re.S)
+i = 0
+for each in pics:
+    print('now downloading:')  + each
+    pic = requests.get(each)
+    fp = open('pic\\' + str(i) + '.jpg', 'wb')
+    fp.write(pic.content)
+    fp.close()
+    i += 1
+
